@@ -1,6 +1,8 @@
 package com.varun.demo.controller;
 
+import com.varun.demo.request.CreatePostRequest;
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 
@@ -45,9 +48,24 @@ class PostControllerE2ETest {
 
     @Test
     void shouldGetNoCustomers() {
+        // Create a post
+        Response response = given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(new CreatePostRequest("sample title", "sample title"))
+                .when()
+                .post("/api/posts")
+                .then()
+                .extract()
+                .response();
+
+        assertEquals(201, response.statusCode());
+        assertEquals("Post created successfully", response.body().asPrettyString());
+
+        // Retrieve all post
         given().get("/api/posts")
                 .then()
                 .statusCode(200)
-                .body("size()", CoreMatchers.is(0));
+                .body("size()", CoreMatchers.is(1));
     }
 }
