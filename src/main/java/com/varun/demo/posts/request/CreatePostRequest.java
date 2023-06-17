@@ -1,3 +1,3 @@
-package com.varun.demo.request;
+package com.varun.demo.posts.request;
 
 public record CreatePostRequest(String title, String content) {}

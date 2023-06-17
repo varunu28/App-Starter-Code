@@ -1,4 +1,4 @@
-package com.varun.demo.repository;
+package com.varun.demo.posts.repository;
 
 public class PostQueries {
 

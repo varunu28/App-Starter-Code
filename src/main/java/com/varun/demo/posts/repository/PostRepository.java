@@ -1,6 +1,6 @@
-package com.varun.demo.repository;
+package com.varun.demo.posts.repository;
 
-import com.varun.demo.model.Post;
+import com.varun.demo.posts.model.Post;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
@@ -8,9 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.varun.demo.repository.PostQueries.CREATE_POST_QUERY;
-import static com.varun.demo.repository.PostQueries.GET_ALL_POSTS_QUERY;
 
 @Repository
 public class PostRepository {
@@ -23,14 +20,14 @@ public class PostRepository {
 
     @Transactional
     public void create(String title, String content) {
-        Query query = entityManager.createNativeQuery(CREATE_POST_QUERY)
+        Query query = entityManager.createNativeQuery(PostQueries.CREATE_POST_QUERY)
                 .setParameter(1, title)
                 .setParameter(2, content);
         query.executeUpdate();
     }
 
     public List<Post> findAll() {
-        Query query = entityManager.createNativeQuery(GET_ALL_POSTS_QUERY);
+        Query query = entityManager.createNativeQuery(PostQueries.GET_ALL_POSTS_QUERY);
         List<?> resultList = query.getResultList();
         return resultList
                 .stream()
