@@ -1,6 +1,6 @@
-package com.varun.demo.controller;
+package com.varun.demo.posts.controller;
 
-import com.varun.demo.request.CreatePostRequest;
+import com.varun.demo.posts.request.CreatePostRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.CoreMatchers;

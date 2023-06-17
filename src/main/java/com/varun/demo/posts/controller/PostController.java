@@ -1,8 +1,8 @@
-package com.varun.demo.controller;
+package com.varun.demo.posts.controller;
 
-import com.varun.demo.model.Post;
-import com.varun.demo.repository.PostRepository;
-import com.varun.demo.request.CreatePostRequest;
+import com.varun.demo.posts.model.Post;
+import com.varun.demo.posts.repository.PostRepository;
+import com.varun.demo.posts.request.CreatePostRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
