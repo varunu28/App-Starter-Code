@@ -7,3 +7,12 @@ spring:
     username: postgres
     password: postgres
   show-sql: true
+org:
+  jobrunr:
+    job-scheduler:
+      enabled: true
+    background-job-server:
+      enabled: true
+    dashboard:
+      port: 8000
+      enabled: true

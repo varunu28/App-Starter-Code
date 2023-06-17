@@ -6,6 +6,7 @@ Starter code for building Java applications
  - Spring Data JPA
  - Testcontainers
  - Testcontainers for PostgreSQL
+ - Integration with [`jobrunr`](https://github.com/jobrunr/jobrunr) for running background jobs
  - Postgres database connected with application container
  - Single command to bring up the service `docker-compose up --build`
 
