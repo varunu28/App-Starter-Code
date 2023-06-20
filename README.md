@@ -7,6 +7,8 @@ Starter code for building Java applications
  - Testcontainers
  - Testcontainers for PostgreSQL
  - Integration with [`jobrunr`](https://github.com/jobrunr/jobrunr) for running background jobs
+ - OpenAPI integration
+ - Swagger UI integration (Swagger UI running on `http://localhost:8080/swagger-ui/index.html`)
  - Postgres database connected with application container
  - Single command to bring up the service `docker-compose up --build`
 

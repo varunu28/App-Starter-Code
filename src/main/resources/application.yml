@@ -7,6 +7,12 @@ spring:
     username: postgres
     password: postgres
   show-sql: true
+springdoc:
+  swagger-ui:
+    path: /swagger-ui-custom.html
+    operationsSorter: method
+  api-docs:
+    path: /api-docs
 org:
   jobrunr:
     job-scheduler:

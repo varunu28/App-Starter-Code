@@ -18,7 +18,6 @@ public class PostController {
     }
 
     @GetMapping
-    @ResponseStatus(code = HttpStatus.OK)
     public ResponseEntity<Iterable<Post>> findAllPosts() {
         return ResponseEntity.status(HttpStatus.OK).body(repository.findAll());
     }

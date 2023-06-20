@@ -1,3 +1,5 @@
 package com.varun.demo.posts.request;
 
-public record CreatePostRequest(String title, String content) {}
+import jakarta.validation.constraints.NotNull;
+
+public record CreatePostRequest(@NotNull String title, @NotNull String content) {}
