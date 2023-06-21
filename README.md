@@ -9,6 +9,9 @@ Starter code for building Java applications
  - Integration with [`jobrunr`](https://github.com/jobrunr/jobrunr) for running background jobs
  - OpenAPI integration
  - Swagger UI integration (Swagger UI running on `http://localhost:8080/swagger-ui/index.html`)
+ - Integration with [Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html) for production-ready features
+ - Integration with [Prometheus](https://prometheus.io/) for metrics
+ - Integration with [Grafana](https://grafana.com/) for dashboards
  - Postgres database connected with application container
  - Single command to bring up the service `docker-compose up --build`
 

@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### exclude monitoring data
+grafana-data
