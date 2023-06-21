@@ -1,7 +1,7 @@
-package com.varun.demo.posts.controller;
+package com.varun.appstartcode.posts.controller;
 
-import com.varun.demo.posts.request.CreatePostRequest;
-import com.varun.demo.posts.request.ExternalPostResponse;
+import com.varun.appstartcode.posts.request.CreatePostRequest;
+import com.varun.appstartcode.posts.request.ExternalPostResponse;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.CoreMatchers;

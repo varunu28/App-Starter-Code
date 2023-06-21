@@ -1,4 +1,4 @@
-package com.varun.demo.posts.request;
+package com.varun.appstartcode.posts.request;
 
 import java.util.UUID;
 

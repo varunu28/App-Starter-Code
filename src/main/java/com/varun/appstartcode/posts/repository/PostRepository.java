@@ -1,7 +1,7 @@
-package com.varun.demo.posts.repository;
+package com.varun.appstartcode.posts.repository;
 
-import com.varun.demo.posts.model.Post;
-import com.varun.demo.posts.request.ExternalPostResponse;
+import com.varun.appstartcode.posts.model.Post;
+import com.varun.appstartcode.posts.request.ExternalPostResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.varun.demo.posts.repository.PostQueries.*;
+import static com.varun.appstartcode.posts.repository.PostQueries.*;
 
 @Repository
 public class PostRepository {

@@ -1,7 +1,7 @@
-package com.varun.demo.posts.model;
+package com.varun.appstartcode.posts.model;
 
 
-import com.varun.demo.posts.request.ExternalPostResponse;
+import com.varun.appstartcode.posts.request.ExternalPostResponse;
 
 import java.util.UUID;
 

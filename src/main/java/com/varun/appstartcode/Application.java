@@ -1,4 +1,4 @@
-package com.varun.demo;
+package com.varun.appstartcode;
 
 import org.jobrunr.jobs.mappers.JobMapper;
 import org.jobrunr.storage.StorageProvider;

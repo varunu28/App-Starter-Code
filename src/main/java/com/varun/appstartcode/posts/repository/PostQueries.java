@@ -1,4 +1,4 @@
-package com.varun.demo.posts.repository;
+package com.varun.appstartcode.posts.repository;
 
 public class PostQueries {
 
