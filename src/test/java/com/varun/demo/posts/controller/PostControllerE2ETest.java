@@ -1,6 +1,7 @@
 package com.varun.demo.posts.controller;
 
 import com.varun.demo.posts.request.CreatePostRequest;
+import com.varun.demo.posts.request.ExternalPostResponse;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.CoreMatchers;
@@ -17,6 +18,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 
@@ -47,20 +49,36 @@ class PostControllerE2ETest {
     }
 
     @Test
-    void shouldGetNoCustomers() {
+    void postCreationSuccessful() {
         // Create a post
-        Response response = given()
+        Response createPostResponse = given()
                 .header("Content-type", "application/json")
                 .and()
-                .body(new CreatePostRequest("sample title", "sample title"))
+                .body(new CreatePostRequest("sample title", "sample content"))
                 .when()
                 .post("/api/posts")
                 .then()
                 .extract()
                 .response();
 
-        assertEquals(201, response.statusCode());
-        assertEquals("Post created successfully", response.body().asPrettyString());
+        assertEquals(201, createPostResponse.statusCode());
+        ExternalPostResponse createdPost = createPostResponse.body().as(ExternalPostResponse.class);
+        assertNotNull(createdPost);
+        assertEquals("sample title", createdPost.title());
+        assertEquals("sample content", createdPost.content());
+
+        // Retrieve post by id
+        Response getPostByIdResponse = given()
+                .get("/api/posts/" + createdPost.postId().toString())
+                .then()
+                .extract()
+                .response();
+
+        assertEquals(200, getPostByIdResponse.statusCode());
+        ExternalPostResponse postById = getPostByIdResponse.body().as(ExternalPostResponse.class);
+        assertNotNull(postById);
+        assertEquals("sample title", postById.title());
+        assertEquals("sample content", postById.content());
 
         // Retrieve all post
         given().get("/api/posts")

@@ -1,11 +1,14 @@
 package com.varun.demo.posts.controller;
 
-import com.varun.demo.posts.model.Post;
 import com.varun.demo.posts.repository.PostRepository;
 import com.varun.demo.posts.request.CreatePostRequest;
+import com.varun.demo.posts.request.ExternalPostResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -18,13 +21,20 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Post>> findAllPosts() {
+    public ResponseEntity<Iterable<ExternalPostResponse>> findAllPosts() {
         return ResponseEntity.status(HttpStatus.OK).body(repository.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ExternalPostResponse> findPostByid(@PathVariable("id")UUID id) {
+        Optional<ExternalPostResponse> response = repository.findPostById(id);
+        return response.map(externalPostResponse -> ResponseEntity.status(HttpStatus.OK).body(externalPostResponse))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+    }
+
     @PostMapping
-    public ResponseEntity<String> createPost(@RequestBody CreatePostRequest request) {
-        repository.create(request.title(), request.content());
-        return ResponseEntity.status(HttpStatus.CREATED).body("Post created successfully");
+    public ResponseEntity<ExternalPostResponse> createPost(@RequestBody CreatePostRequest request) {
+        ExternalPostResponse postResponse = repository.create(request.title(), request.content());
+        return ResponseEntity.status(HttpStatus.CREATED).body(postResponse);
     }
 }

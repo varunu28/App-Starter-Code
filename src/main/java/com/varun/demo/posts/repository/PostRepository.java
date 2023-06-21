@@ -1,13 +1,18 @@
 package com.varun.demo.posts.repository;
 
 import com.varun.demo.posts.model.Post;
+import com.varun.demo.posts.request.ExternalPostResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static com.varun.demo.posts.repository.PostQueries.*;
 
 @Repository
 public class PostRepository {
@@ -19,27 +24,42 @@ public class PostRepository {
     }
 
     @Transactional
-    public void create(String title, String content) {
-        Query query = entityManager.createNativeQuery(PostQueries.CREATE_POST_QUERY)
-                .setParameter(1, title)
-                .setParameter(2, content);
+    public ExternalPostResponse create(String title, String content) {
+        UUID uuid = UUID.randomUUID();
+        Query query = entityManager.createNativeQuery(CREATE_POST_QUERY)
+                .setParameter(1, uuid)
+                .setParameter(2, title)
+                .setParameter(3, content);
         query.executeUpdate();
+        return new ExternalPostResponse(uuid, title, content);
     }
 
-    public List<Post> findAll() {
-        Query query = entityManager.createNativeQuery(PostQueries.GET_ALL_POSTS_QUERY);
+    public List<ExternalPostResponse> findAll() {
+        Query query = entityManager.createNativeQuery(GET_ALL_POSTS_QUERY);
         List<?> resultList = query.getResultList();
         return resultList
                 .stream()
                 .map(this::convertToPost)
+                .map(Post::convertToExternalPostResponse)
                 .collect(Collectors.toList());
+    }
+
+    public Optional<ExternalPostResponse> findPostById(UUID id) {
+        Query query = entityManager.createNativeQuery(GET_POST_BY_ID)
+                .setParameter(1, id);
+        List<?> resultList = query.getResultList();
+        if (resultList.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(convertToPost(resultList.get(0)).convertToExternalPostResponse());
     }
 
     private Post convertToPost(Object result) {
         Object[] row = (Object[]) result;
         Integer id = (Integer) row[0];
-        String title = (String) row[1];
-        String content = (String) row[2];
-        return new Post(id, title, content);
+        UUID externalId = (UUID) row[1];
+        String title = (String) row[2];
+        String content = (String) row[3];
+        return new Post(id, externalId, title, content);
     }
 }
